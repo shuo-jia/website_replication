@@ -1,0 +1,197 @@
+/* 新闻资讯卡片标题样式 */
+span.card_title {
+    color: DodgerBlue;
+    font-weight: 500;
+    font-size: 15pt;
+}
+
+/* 限制栅格内元素的宽度，防止溢出 */
+div.col-sm {
+    min-width: 0;
+}
+
+/* 新闻资讯卡片大小样式 */
+div.carousel-inner>div.card>div.card-body {
+    height: 150px;
+}
+
+/* 新闻资讯标题样式 */
+div.carousel-inner>div.card>div.card-body>div>a {
+    color: DodgerBlue;
+    font-size: 13pt;
+    font-weight: 500;
+}
+
+/* 新闻资讯文本内容样式 */
+div.carousel-inner>div.card>div.card-body>p {
+    font-size:11pt;
+    color: DimGrey;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;            /* 控制显示几行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+/* 新闻资讯文本内容（出版社、记者）样式 */
+div.carousel-inner>div.card>div.card-body>p>span:first-child {
+    font-size:10pt;
+    color: DarkSlateGray;
+}
+
+/* 新闻资讯文本内容（发布时间）样式 */
+div.carousel-inner>div.card>div.card-body>p>span:nth-child(2) {
+    font-size:10pt;
+    color: Grey;
+}
+
+/* 头条新闻资讯标题样式 */
+div#TopNewsIndicators>div.carousel-inner>div.card>div.card-body>a {
+    color: Tomato;
+    font-size: 13pt;
+}
+
+/* 指示器（小圆点）*/
+.carousel-indicators li {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: LightGrey;
+    border: 2px solid #FFF;
+}
+
+/* 指示器（小圆点）*/
+.carousel-indicators .active {
+    background-color: DodgerBlue;
+    border-color: DodgerBlue;
+}
+
+/* 新闻资讯正文样式 */
+div.modal-body>div {
+    margin-top: 10px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+/* 新闻资讯弹出框底部 footer 设置 */
+div.modal-footer>span {
+    color: Grey;
+    margin-right: 50px;
+}
+
+/* 股票指数字体样式 */
+div.index_card>p:first-child {
+    color: DimGrey;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+/* 股票指数涨值样式-最新价*/
+div.index_card>p.positive:nth-child(2) {
+    color: Tomato;
+    font-size: 13pt;
+    font-weight: 600;
+}
+
+/* 股票指数涨值样式-涨跌幅/涨跌额*/
+div.index_card>p.positive:nth-child(3) {
+    color: Tomato;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+/* 股票指数跌值样式-最新价 */
+div.index_card>p.negative:nth-child(2) {
+    color: LimeGreen;
+    font-size: 13pt;
+    font-weight: 600;
+}
+
+/* 股票指数跌值样式-涨跌幅/涨跌额 */
+div.index_card>p.negative:nth-child(3) {
+    color: LimeGreen;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+/* 表格表头样式 */
+thead {
+    color: Grey;
+    font-size: 9pt;
+}
+/* 表格表体样式 */
+tbody {
+    font-size: 11pt;
+}
+
+/* 板块异动样式-设置高度/滚动 */
+div.sector_table {
+    height: 200px;
+    overflow-y: auto;
+}
+
+/* 板块异动样式-设置表头固定 */
+div.sector_table>table>thead {
+    position: sticky;
+    top: 0;
+}
+
+/* 板块异动样式-设置不同列字体字号/颜色 */
+div.sector_table>table>tbody>tr>th:nth-child(5) {
+    font-weight: 300;
+}
+div.sector_table>table>tbody>tr>th:nth-child(6) {
+    font-weight: 300;
+}
+div.sector_table th.position {
+    color: Tomato;
+}
+div.sector_table th.negative {
+    color: LimeGreen;
+}
+
+/* 热门股票样式-股票名样式 */
+div.stock_card>div:first-child>p:first-child {
+    font-size: 14pt;
+    font-weight: 600;
+    color: DodgerBlue;
+    text-align: left;
+}
+
+/* 热门股票样式-股票代码样式 */
+div.stock_card>div:first-child>p:nth-child(2) {
+    font-size: 10pt;
+    font-weight: 400;
+    color: DimGrey;
+    text-align: left;
+}
+
+/* 热门股票样式-股票代码前缀样式 */
+div.stock_card>div:first-child>p:nth-child(2)>span {
+    font-weight: 500;
+    color: DodgerBlue;
+    background-color: #ECFEFF;
+    padding: 2pt;
+    border: 1px solid #A2F4FD;
+    margin-right: 5pt;
+}
+
+/* 热门股票样式-最新价/涨跌幅标题样式 */
+div.stock_card>div:nth-child(2)>div>p:first-child {
+    color: Grey;
+    font-size: 10pt;
+}
+
+/* 热门股票样式-最新价/涨跌幅数字样式 */
+div.stock_card>div:nth-child(2)>div>p:nth-child(2) {
+    font-size: 13pt;
+    font-weight: 500;
+}
+
+/* 热门股票样式-涨跌幅数字颜色样式 */
+div.stock_card p.positive {
+    color: Tomato;
+}
+div.stock_card p.negative {
+    color: LimeGreen;
+}

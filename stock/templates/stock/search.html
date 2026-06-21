@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+{% block title %}
+  股票资讯AI智能分析 - 股票搜索
+{% endblock %}
+
+{% block active_page2 %}
+  active
+{% endblock %}
+
+{% block content %}
+  <div class="container d-flex flex-column align-items-center justify-content-center h-50">
+    <div class="d-flex justify-content-center"><h1>股票搜索</h1></div>
+      <div class="w-75 mx-auto bg-white border-0 shadow-sm p-3 mb-5">
+        <form action="{% url 'stock:search' %}" method="get">
+          <div class="form-row p-3">
+            <input class="col" type="text" name="stock_code" placeholder="股票代码">
+            <input class="btn btn-primary" type="submit" value="搜索">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

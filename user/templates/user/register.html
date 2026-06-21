@@ -1,0 +1,40 @@
+{% extends 'user/login_base.html' %}
+{% block title %}
+  股票资讯AI智能分析 - 登录
+{% endblock %}
+
+{% load static %}
+{% block extra_link %}
+<link rel="stylesheet" href="{% static 'user/register.css' %}">
+{% endblock %}
+
+{% load form_tags %}
+{% block content %}
+    <form class="p-5" action="{% url 'user:register' %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {% if not recommit %}
+            {{ field|addClass:"form-control" }}
+          {% elif not register_success and field.errors %}
+            {{ field|addClass:"form-control is-invalid" }}
+            <div class="invalid-feedback">{{ field.errors.0 }}</div>
+          {% elif field.id_for_label != "id_password1" %}
+            {{ field|addClass:"form-control is-valid" }}
+          {% else %}
+            {{ field|addClass:"form-control" }}
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="row">
+      {% if register_success %}
+        <div class="text-center w-100" id="success_info">
+          <a href="{% url 'user:login' %}">注册成功！点击此处登录</div>
+        </div>
+      {% else %}
+        <input type="submit" value="注册" class="btn btn-primary col-2 offset-5">
+      {% endif %}
+      </div>
+    </form>
+{% endblock %}

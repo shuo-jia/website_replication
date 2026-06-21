@@ -1,0 +1,45 @@
+{% extends 'common/base.html' %}
+{% block title %}
+  股票资讯AI智能分析 - 业绩预测
+{% endblock %}
+
+{% load static %}
+{% block extra_link %}
+<link rel="stylesheet" href="{% static 'stock/forecast_style.css' %}">
+{% endblock %}
+
+{% block active_page3 %}
+  active
+{% endblock %}
+
+{% block content %}
+  <div class="container bg-white border-0 shadow-sm p-3 mb-5">
+    <h5>净利润预测</h5>
+    <div class="forecast_table">
+      <table class="table table-hover">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">股票代码</th>
+            <th scope="col">股票名称</th>
+            <th scope="col">盈利预测摘要</th>
+            <th scope="col">更新时间</th>
+          </tr>
+        <tbody>
+          {% for name, predict in stock_list %}
+            <tr>
+              <th scope="col"><a href="{% url 'stock:detail' predict.code %}">{{ predict.code }}</a></th>
+              <th scope="col"><a href="{% url 'stock:detail' predict.code %}">{{ name }}</a></th>
+              <th class="w-50" scope="col">
+                截至{{ predict.update_time|date:"Y-m-d" }}，共有
+                {{ predict.institution }} 家机构对
+                {{ name }}{{ predict.year }} 年度业绩作出预测，预计
+                {{ predict.year }} 年净利润{{ predict.avg_profit }} 元。
+              </th>
+              <th scope="col">{{ predict.update_time|date:"Y-m-d H:i" }}</th>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

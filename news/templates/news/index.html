@@ -1,0 +1,290 @@
+{% extends 'common/base.html' %}
+{% block title %}
+  股票资讯AI智能分析 - 首页
+{% endblock %}
+
+{% block active_page1 %}
+  active
+{% endblock %}
+
+{% load static %}
+{% block extra_link %}
+<link rel="stylesheet" href="{% static 'news/style.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h4>市场资讯</h4>
+    <div id="TopNewsIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#TopNewsIndicators" data-slide-to="0" class="active"></li>
+        {% for news in top_news_list|slice:"1:" %}
+          <li data-target="#TopNewsIndicators" data-slide-to="{{ forloop.counter }}"></li>
+        {% endfor %}
+      </ol>
+      <div class="carousel-inner">
+        {% for news in top_news_list %}
+          {% if forloop.counter0 == 0 %}
+            <div class="carousel-item card border-0 shadow-sm p-3 mb-5 active">
+          {% else %}
+            <div class="carousel-item card border-0 shadow-sm p-3 mb-5">
+          {% endif %}
+            <div class="card-header bg-white">
+              <span class="card_title">头条新闻</span>
+            </div>
+            <div class="card-body">
+              <div class="text-truncate"><a class="card-title" href="" data-toggle="modal" data-target="#newsModal{{ news.pk }}">{{ news.title }}</a></div>
+              <p class="card-text">{{ news.brief }}</p>
+              <p class="card-text">
+                <span>{{ news.publisher }} &nbsp; {{ news.author }}</span>
+                <span>&nbsp; •  &nbsp; {{ news.publication_date|date:"Y-m-d H:i:s" }}</span>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#TopNewsIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#TopNewsIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-sm">
+        <div id="DomesticNewsIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            {% for news in domestic_news_list %}
+              {% if forloop.counter0 == 0 %}
+                <li data-target="#DomesticNewsIndicators" data-slide-to="0" class="active"></li>
+              {% else %}
+                <li data-target="#DomesticNewsIndicators" data-slide-to="{{ forloop.counter0 }}"></li>
+              {% endif %}
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for news in domestic_news_list %}
+              {% if forloop.counter0 == 0 %}
+                <div class="carousel-item card border-0 shadow-sm p-3 mb-5 active">
+              {% else %}
+                <div class="carousel-item card border-0 shadow-sm p-3 mb-5">
+              {% endif %}
+                <div class="card-header bg-white">
+                  <span class="card_title">国内资讯</span>
+                </div>
+                <div class="card-body">
+                  <div class="text-truncate"><a class="card-title" href="" data-toggle="modal" data-target="#newsModal{{ news.pk }}">{{ news.title }}</a></div>
+                  <p class="card-text">{{ news.brief }}</p>
+                  <p class="card-text">
+                    <span>{{ news.publisher }} &nbsp; {{ news.author }}</span>
+                    <span>&nbsp; •  &nbsp; {{ news.publication_date|date:"Y-m-d H:i:s" }}</span>
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#DomesticNewsIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#DomesticNewsIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div id="ForeignNewsIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            {% for news in foreign_news_list %}
+              {% if forloop.counter0 == 0 %}
+                <li data-target="#ForeignNewsIndicators" data-slide-to="0" class="active"></li>
+              {% else %}
+                <li data-target="#ForeignNewsIndicators" data-slide-to="{{ forloop.counter0 }}"></li>
+              {% endif %}
+            {% endfor %}
+          </ol>
+          <div class="carousel-inner">
+            {% for news in foreign_news_list %}
+              {% if forloop.counter0 == 0 %}
+                <div class="carousel-item card border-0 shadow-sm p-3 mb-5 active">
+              {% else %}
+                <div class="carousel-item card border-0 shadow-sm p-3 mb-5">
+              {% endif %}
+                <div class="card-header bg-white">
+                  <span class="card_title">外围资讯</span>
+                </div>
+                <div class="card-body">
+                  <div class="text-truncate"><a class="card-title" href="" data-toggle="modal" data-target="#newsModal{{ news.pk }}">{{ news.title }}</a></div>
+                  <p class="card-text">{{ news.brief }}</p>
+                  <p class="card-text">
+                    <span>{{ news.publisher }} &nbsp; {{ news.author }}</span>
+                    <span>&nbsp; •  &nbsp; {{ news.publication_date|date:"Y-m-d H:i:s" }}</span>
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#ForeignNewsIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#ForeignNewsIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-0 shadow-sm p-3 mb-5 bg-white">
+      <div class="d-flex align-items-center justify-content-between">
+        <h5 class="mb-0">个股异动</h5>
+        <div>
+          <button class="btn btn-primary rounded-pill btn-sm" type="button" value="">全部</button>
+          <button class="btn btn-primary rounded-pill btn-sm" type="button" value="">短线</button>
+          <button class="btn btn-primary rounded-pill btn-sm" type="button" value="">中线</button>
+          <button class="btn btn-primary rounded-pill btn-sm" type="button" value="">长线</button>
+          <a class="ml-3 text-primary" href="#">查看全部 &rarr; </a>
+        </div>
+      </div>
+      <table class="table rounded">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">股票</th>
+            <th scope="col">行情数据</th>
+            <th scope="col">异动数据</th>
+            <th scope="col">异动信息</th>
+            <th scope="col">级别</th>
+            <th scope="col">时间</th>
+        </thead>
+        <tbody>
+          <tr><th>暂无异动数据</th></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>市场概览</h4>
+    <div class="container p-2 m-0">
+      {% for index_row in index_list %}
+        <div class="row">
+          {% for idx in index_row %}
+            <div class="col-sm px-0">
+              <div class="card m-2 border-0 shadow-sm bg-white">
+                <div class="card-body text-center index_card">
+                  <p class="mb-1">{{ idx.name }}</p>
+                  {% if idx.price_change >= 0 %}
+                    <p class="mb-1 positive">{{ idx.price|floatformat:"2" }}</p>
+                    <p class="mb-0 positive">{{ idx.price_change|floatformat:"2" }} &nbsp; {{ idx.pct_change|floatformat:"2" }}%</p>
+                  {% else %}
+                    <p class="mb-1 negative">{{ idx.price|floatformat:"2" }}</p>
+                    <p class="mb-0 negative">{{ idx.price_change|floatformat:"2" }} &nbsp; {{ idx.pct_change|floatformat:"2" }}%</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="container border-0 shadow-sm p-3 mb-5 bg-white">
+      <h5>板块异动</h5>
+      <div class="sector_table">
+        <table class="table rounded">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">板块</th>
+              <th scope="col">涨跌幅</th>
+              <th scope="col">异动总次数</th>
+              <th scope="col">主力净流入（万元）</th>
+              <th scope="col">关联个股（股票代码）</th>
+              <th scope="col">关联个股（股票名称）</th>
+          </thead>
+          <tbody>
+            {% for sector in sector_list %}
+              <tr>
+                <th>{{sector.name}}</th>
+                {% if sector.pct_change|floatformat:"2" >= 0 %}
+                  <th class="positive">{{sector.pct_change|floatformat:"2"}}</th>
+                {% else %}
+                  <th class="negative">{{sector.pct_change|floatformat:"2"}}</th>
+                {% endif %}
+                <th>{{sector.movement_count}}</th>
+                {% if sector.net_inflow >= 0 %}
+                  <th class="positive">{{sector.net_inflow|floatformat:"2"}}</th>
+                {% else %}
+                  <th class="negative">{{sector.net_inflow|floatformat:"2"}}</th>
+                {% endif %}
+                <th>{{sector.stock_code}}</th>
+                <th>{{sector.stock_name}}</th>
+              </tr>
+            {% empty %}
+              <tr><th>暂无板块异动数据</th></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <h4>热门股票</h4>
+    <div class="container p-2 m-0">
+      {% for stock_row in stock_follow_list %}
+        <div class="row">
+          {% for stock in stock_row %}
+            <div class="col-sm px-0">
+              <div class="card m-2 border-0 shadow-sm bg-white">
+                <div class="card-body text-center stock_card">
+                  <div>
+                    <p class="mb-1"><a href="{% url 'stock:detail' stock.code %}">{{ stock.name }}</a></p>
+                    <p class="mb-1"><span>{{ stock.code|slice:":2"|upper }}</span>{{ stock.code|slice:"-6:" }}</p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <p class="mb-1">最新价</p>
+                      <p class="mb-1">{{ stock.price|floatformat:"2" }}</p>
+                    </div>
+                    <div>
+                      <p class="mb-1">涨跌幅</p>
+                      {% if stock.price_change >= 0 %}
+                        <p class="mb-1 positive">{{ stock.pct_change|floatformat:"2" }}%</p>
+                      {% else %}
+                        <p class="mb-1 negative">{{ stock.pct_change|floatformat:"2" }}%</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% if stock_follow_list|first|length == 0 %}
+        <div class="col-sm px-0 bg-white shadow-sm p-3 mb-3">
+          暂无热门股票数据
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <!-- 新闻正文 -->
+  {% for news in top_news_list|add:domestic_news_list|add:foreign_news_list %}
+    <div class="modal fade" id="newsModal{{ news.pk }}" tabindex="-1" role="dialog" aria-labelledby="newsModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newsModalCenterTitle">新闻详情</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong>正文内容</strong>
+            <div class='bg-light'>{{ news.text|linebreaks }}</div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <span>发布时间：{{ news.publication_date|date:"Y-m-d H:i:s" }}</span>
+            <a target="_blank" href="{{news.link}}">查看原文</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

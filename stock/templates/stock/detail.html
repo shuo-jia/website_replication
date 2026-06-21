@@ -1,0 +1,115 @@
+{% extends 'common/base.html' %}
+{% block title %}
+  股票资讯AI智能分析 - 股票详情
+{% endblock %}
+
+{% load static %}
+{% block extra_link %}
+<link rel="stylesheet" href="{% static 'stock/detail_style.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="d-flex align-items-start">
+      <h3>{{ stock_info.name }}</h3>
+      <div>
+        <span>{{ stock_info.code|slice:":2" }}</span>
+        <span>.{{ stock_info.code|slice:"2:" }}</span>
+      </div>
+    </div>
+    <div class="card border-0 shadow-sm p-3 mb-5 bg-white">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">K线-日线（未复权）</h5>
+      </div>
+      <div class="card-body" id="k_line_chart" style="height:400px;">
+      </div>
+    </div>
+    <div class="card price_card border-0 shadow-sm p-3 mb-5 bg-white">
+      <div class="card-header bg-white">
+        <h5 class="mb-0">交易数据</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm border rounded">
+            <span>最新价：</span>
+            {% if stock_info.price_change >= 0 %}
+              <span class="positive">{{ stock_info.price|floatformat:"2" }}</span>
+            {% else %}
+              <span class="negative">{{ stock_info.price|floatformat:"2" }}</span>
+            {% endif %}
+          </div>
+          <div class="col-sm border rounded">
+            <span>涨跌幅：</span>
+            {% if stock_info.pct_change >= 0 %}
+              <span class="positive">{{ stock_info.pct_change|floatformat:"2" }}%</span>
+            {% else %}
+              <span class="negative">{{ stock_info.pct_change|floatformat:"2" }}%</span>
+            {% endif %}
+          </div>
+          <div class="col-sm border rounded">
+            <span>涨跌额：</span>
+            {% if stock_info.price_change >= 0 %}
+              <span class="positive">{{ stock_info.price_change|floatformat:"2" }}</span>
+            {% else %}
+              <span class="negative">{{ stock_info.price_change|floatformat:"2" }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm border rounded">
+            <span>最高价：</span>
+            <span>{{ stock_info.high|floatformat:"2" }}</span>
+          </div>
+          <div class="col-sm border rounded">
+            <span>最低价：</span>
+            <span>{{ stock_info.low|floatformat:"2" }}</span>
+          </div>
+          <div class="col-sm border rounded">
+            <span>昨收：</span>
+            <span>{{ stock_info.close_yesterday|floatformat:"2" }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm border rounded">
+            <span>成交量：</span>
+            <span>{{ stock_info.volume|floatformat:"2" }}</span>
+          </div>
+          <div class="col-sm border rounded">
+            <span>成交额：</span>
+            <span>{{ stock_info.turnover|floatformat:"2" }}</span>
+          </div>
+          <div class="col-sm border rounded">
+            <span>今开：</span>
+            <span>{{ stock_info.open_today|floatformat:"2" }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_script %}
+  <script src="https://cdn.jsdelivr.net/npm/echarts@6.1.0/dist/echarts.min.js"></script>
+  <!-- 生成 K 线图 -->
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('k_line_chart'));
+
+    // 指定图表的配置项和数据
+    var option = option = {
+      xAxis: {
+        data: {{ x_axis_label|safe }}
+      },
+      yAxis: {
+        min: 'dataMin'
+      },
+      series: [
+        {
+          type: 'candlestick',
+          data: {{ series|safe }}
+        }
+      ]
+    };
+
+    myChart.setOption(option);
+  </script>
+{% endblock %}

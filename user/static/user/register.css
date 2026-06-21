@@ -1,0 +1,7 @@
+form img {
+    margin-left: 30pt;
+}
+
+div#success_info>a {
+    color: Red;
+}

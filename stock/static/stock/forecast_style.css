@@ -1,0 +1,29 @@
+/* 业绩预测板块样式-设置高度/滚动 */
+div.forecast_table {
+    height: 400pt;
+    overflow-y: auto;
+    margin-top: 20pt;
+    margin-bottom: 20pt;
+}
+/* 业绩预测板块样式-设置表头固定 */
+div.forecast_table>table>thead {
+    position: sticky;
+    top: 0;
+    color: Grey;
+    font-size: 12pt;
+}
+/* 业绩预测板块样式-设置表体字体 */
+div.forecast_table>table>tbody th {
+    font-size: 11pt;
+    font-weight: 400;
+    color: DimGrey;
+}
+/* 业绩预测板块样式-设置股票代码、股票名称样式 */
+div.forecast_table>table>tbody>tr>th:first-child {
+    font-weight: 600;
+    color: DodgerBlue;
+}
+div.forecast_table>table>tbody>tr>th:nth-child(2) {
+    font-weight: 600;
+    color: DodgerBlue;
+}

@@ -1,0 +1,42 @@
+/* 标题中的股票代码样式设置 */
+div.container>div.d-flex>div {
+    font-size: 14pt;
+    font-weight: 500;
+    background-color: #F5F5F4;
+    border: 1px solid LightGrey;
+    margin-left: 15pt;
+}
+/* 标题中的股票代码样式-代码前缀 */
+div.container>div.d-flex>div>span:first-child {
+    font-weight: 500;
+    color: DodgerBlue;
+    padding-left:3pt;
+}
+/* 标题中的股票代码样式-代码字体 */
+div.container>div.d-flex>div>span:nth-child(2) {
+    color: DimGrey;
+    padding-right:3pt;
+}
+
+/* 交易数据样式 */
+div.price_card div.col-sm {
+    margin: 4pt;
+    padding: 8pt;
+    text-align: center;
+}
+/* 交易数据名称样式 */
+div.price_card div.col-sm>span:first-child {
+    color: DimGrey;
+}
+/* 交易数据数值样式 */
+div.price_card div.col-sm>span:nth-child(2) {
+    font-weight: 600;
+}
+/* 交易数据样式（股票上涨） */
+div.price_card div.col-sm>span.positive {
+    color: Tomato;
+}
+/* 交易数据样式（股票下跌） */
+div.price_card div.col-sm>span.negative {
+    color: LimeGreen;
+}

@@ -1,0 +1,31 @@
+/* 导航栏页面链接样式 */
+div#navbarPageLink a {
+    color: black;
+    margin-left: 50px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* 导航栏页面链接样式（当前页面的链接突出显示，排除下拉式菜单的情形） */
+div#navbarNavAltMarkup :not(.show) a.active {
+    color: DodgerBlue;
+    border-bottom: 3px solid;
+}
+
+/* 导航栏网站名称字体样式 */
+a#webTitle {
+    font-weight: 600;
+    font-size: 18pt;
+    color: DodgerBlue;
+}
+
+/* 登录按钮样式 */
+a#loginButton{
+    background-color: DodgerBlue;
+}
+
+/* 让整个页面高度占满，配合 bootstrap 的 d-flex、flex-grow-1 使得内容较少时
+ * footer 贴近底部 */
+html, body {
+    height: 100%;
+}
