@@ -1,5 +1,7 @@
 from __future__ import annotations
+import datetime
 import akshare as ak
+from time import sleep
 from django.db import models
 from django.utils import timezone
 
@@ -55,15 +57,39 @@ class CompositeIndex(models.Model):
     def getLatestHKStock() -> list[CompositeIndex]:
         """获取港股实时指数.
         """
-        data = ak.stock_hk_index_spot_sina()
-        now = timezone.now()
-        return [CompositeIndex(
-            code=item[1]['代码'], name=item[1]['名称'],
-            price=item[1]['最新价'], price_change=item[1]['涨跌额'],
-            pct_change=item[1]['涨跌幅'], close_yesterday=item[1]['昨收'],
-            open_today=item[1]['今开'], high=item[1]['最高'],
-            low=item[1]['最低'], update_time=now
-        ) for item in data.iterrows()]
+        try:
+            now = timezone.now()
+            data = ak.stock_hk_index_spot_sina()
+            return [CompositeIndex(
+                code=item[1]['代码'], name=item[1]['名称'],
+                price=item[1]['最新价'], price_change=item[1]['涨跌额'],
+                pct_change=item[1]['涨跌幅'], close_yesterday=item[1]['昨收'],
+                open_today=item[1]['今开'], high=item[1]['最高'],
+                low=item[1]['最低'], update_time=now
+            ) for item in data.iterrows()]
+        except ValueError:
+            # 接口 stock_hk_index_spot_sina() 有时会禁 IP。如果禁了 IP，那就从
+            # 历史数据中获取上一交易日的数据。下面的两个指数是主页需要的。
+            data1 = ak.stock_hk_index_daily_sina(symbol='HSI')
+            sleep(0.5)
+            data2 = ak.stock_hk_index_daily_sina(symbol='HSTECH')
+            chg1 = data1.iloc[-1]['close'] - data1.iloc[-2]['close']
+            chg2 = data2.iloc[-1]['close'] - data2.iloc[-2]['close']
+            pct_chg1 = chg1 / data1.iloc[-2]['close'] * 100
+            pct_chg2 = chg2 / data2.iloc[-2]['close'] * 100
+            data = [('HSI', '恒生指数', data1, chg1, pct_chg1),
+                    ('HSTECH', '恒生科技指数', data2, chg2, pct_chg2)]
+            return [CompositeIndex(
+                code=item[0], name=item[1], price=item[2].iloc[-1]['close'],
+                price_change=item[3], pct_change=item[4],
+                close_yesterday=item[2].iloc[-2]['close'],
+                open_today=item[2].iloc[-1]['open'],
+                high=item[2].iloc[-1]['high'], low=item[2].iloc[-1]['low'],
+                volume=item[2].iloc[-1]['volume'],
+                update_time=datetime.datetime.combine(
+                        item[2].iloc[-1]['date'], datetime.time(23, 59, 59)
+                    ).replace(tzinfo=timezone.get_current_timezone())
+            ) for item in data]
 
     @staticmethod
     def getLatestUSStock() -> list[CompositeIndex]:

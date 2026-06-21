@@ -25,9 +25,9 @@ def updateStock():
     from stock import models as custom_models
     from django.utils import timezone
     # 更新股票指数
-    new_items = custom_models.CompositeIndex.getLatestAStock() + \
-        custom_models.CompositeIndex.getLatestUSStock() + \
-        custom_models.CompositeIndex.getLatestUSStock()
+    new_items = custom_models.CompositeIndex.getLatestUSStock() + \
+        custom_models.CompositeIndex.getLatestHKStock() + \
+        custom_models.CompositeIndex.getLatestAStock()
     custom_models.CompositeIndex.objects.bulk_create(new_items)
 
     # 更新板块异动表
